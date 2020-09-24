@@ -8,19 +8,23 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            items : data,
+            listTask : data.items,
+            items : []
         }
     }
     addNewTask = (taskName, taskLevel) => {
-        console.log(this.state.items.items);
-        // this.state.items.items.push({'name' : taskName, 'level' : taskLevel });
+        let listTask = this.state.listTask;
+        let itemId = listTask.length + 1;
+        let data = { "id":itemId,
+            "name" : taskName,
+            "level" : taskLevel
+        };
+        listTask.push(data);
+        this.setState({items : listTask })
     };
     render() {
-        let items = this.state.items.items;
-        let task = items.map((item, index) => {
-            return (<Item key={index} index={index} value={item} />)
-        });
-        let formAdd =  <FormAddItem save = {this.addNewTask} />
+        let items = this.state.items;
+        let formAdd =  <FormAddItem save = {this.addNewTask} />;
         return (
             <div className="container">
                 <div className="row py-5">
@@ -37,9 +41,7 @@ class App extends Component {
                                 <th>Actions</th>
                             </tr>
                             </thead>
-                            <tbody>
-                                {task}
-                            </tbody>
+                            <Item items = {items} />
                         </table>
                     </div>
                 </div>

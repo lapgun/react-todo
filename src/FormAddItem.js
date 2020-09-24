@@ -9,16 +9,24 @@ class FormAddItem extends Component {
 
         }
     }
+    componentDidMount = () => {
+      this.handleSaveData();
+    };
     handleEnterName = (event) => {
         this.setState({name : event.target.value});
     };
     handleChangeOptionState = (event) =>{
         this.setState({optionState : event.target.value });
     };
-    handleSaveData(){
-        console.log(this.props);
-        // this.props.save(this.state.name,  this.state.level);
-    }
+    handleSaveData = (event) => {
+        this.props.save(this.state.name,  this.state.level);
+        this.resetForm();
+        // eslint-disable-next-line no-undef
+        $('#exampleModal').modal('toggle');
+    };
+    resetForm = () => {
+        this.setState({ Id: null, name: '', level: 0 });
+    };
     render() {
         return (
             <div>
