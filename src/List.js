@@ -7,7 +7,12 @@ class List extends Component {
             items: []
         }
     }
-
+    handleDeleteItem = () => {
+        this.props.delete(this.props.index);
+    };
+    handleEditItem = () => {
+        this.props.edit(this.props.index);
+    };
     render() {
         let index = this.props.index;
         let value = this.props.value;
@@ -16,7 +21,7 @@ class List extends Component {
         return (
             <tr>
                 <td>
-                    <a href="#">
+                    <a href="/#">
                         <div className="d-flex align-items-center">
                             <div className="avatar avatar-blue mr-3">EB{index}</div>
 
@@ -34,8 +39,8 @@ class List extends Component {
                     <div className={setBadges(value.level)}>{setTextByLevel(value.level)}</div>
                 </td>
                 <td>
-                    <a href=""><i className="fas fa-edit"/></a>
-                    <a href="" className="margin"><i className="fas fa-trash-alt"/></a>
+                    <a href="/#" onClick={this.handleEditItem}><i className="fas fa-edit"/></a>
+                    <a href="/#" className="margin" onClick={this.handleDeleteItem}><i className="fas fa-trash-alt"/></a>
                 </td>
             </tr>
         );

@@ -9,7 +9,8 @@ class App extends Component {
         super(props);
         this.state = {
             listTask : data.items,
-            items : []
+            items : [],
+            isFormAdd : true
         }
     }
     addNewTask = (taskName, taskLevel) => {
@@ -17,14 +18,25 @@ class App extends Component {
         let itemId = listTask.length + 1;
         let data = { "id":itemId,
             "name" : taskName,
-            "level" : taskLevel
+            "level" : parseInt(taskLevel)
         };
         listTask.push(data);
         this.setState({items : listTask })
     };
+    deleteTask = (task) => {
+        this.state.listTask.splice(task, 1);
+        this.setState({items : this.state.listTask});
+        alert('Delete Success!')
+    };
+    editTask = (task) => {
+        let item = this.state.listTask.find((a,index) => index === task );
+        console.log(item);
+        this.setState({isAddForm: false});
+    };
     render() {
-        let items = this.state.items;
-        let formAdd =  <FormAddItem save = {this.addNewTask} />;
+        console.log(this.state.isFormAdd);
+        let items = this.state.listTask;
+        let formAdd =  <FormAddItem save = {this.addNewTask}  />;
         return (
             <div className="container">
                 <div className="row py-5">
@@ -41,7 +53,7 @@ class App extends Component {
                                 <th>Actions</th>
                             </tr>
                             </thead>
-                            <Item items = {items} />
+                            <Item items = {items} delete = {this.deleteTask} edit = {this.editTask}/>
                         </table>
                     </div>
                 </div>
@@ -49,5 +61,4 @@ class App extends Component {
         );
     }
 }
-
 export default App;

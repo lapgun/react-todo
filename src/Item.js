@@ -35,11 +35,16 @@ class Item extends Component {
                 return 'Success';
         }
     };
-
+    deleteItem = (task) =>{
+        this.props.delete(task);
+    };
+    editItem = (task) =>{
+        this.props.edit(task);
+    };
     render() {
         let task = this.props.items.map((item, index) => {
             return (
-                <List key={index} value={item} index={index} badges = {this.setBadges} textByLevel = { this.setTextByLevel}/>
+                <List key={index} value={item} index={index} badges = {this.setBadges} textByLevel = { this.setTextByLevel} delete ={ this.deleteItem } edit ={ this.editItem }/>
             )
         });
         return (
